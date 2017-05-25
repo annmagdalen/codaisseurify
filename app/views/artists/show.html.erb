@@ -1,3 +1,17 @@
-<h3><%= @artist.name %></h3>
+<h3>Songs of <%= @artist.name %></h3>
 
+<% if @artist.songs.any? %>
+<ul>
+<% @artist.songs.each do |song| %>
+<li><%= link_to song.name, song_path(song), method: :delete, data: {confirm: "Are you sure you want to delete this song?"} %></li>
+<%end%>
+</ul>
+<%else%>
+<p>There are no songs for this artist.</p>
+<%end%>
+<br>
+<%= link_to "Add a new song", new_song_path %>
+<br>
+<%= link_to "Delete artist", artist_path(@artist), method: :delete, data: {confirm: "Are you sure you want to delete #{@artist.name} from this website?"} %>
+<br>
 <%= link_to "Back to all artists", root_path %>
