@@ -1,6 +1,15 @@
+<div class="jumbotron">
+  <div class="container">
+    <h2>The Greatest Artists of All Time</h2>
+  </div>
+</div>
 
-<h3>List of Artists</h3>
-
-<% @artists.each do |artist| %>
-<p><%= link_to artist.name, artist_path(artist) %></p>
-<%end%>
+<div class="container">
+  <div class="row">
+    <% @artists.each do |artist| %>
+    <div class="col-md-4">
+      <h4><%= link_to artist.name, artist_path(artist) %></h4>
+    </div>
+    <%end%>
+  </div>
+</div>
