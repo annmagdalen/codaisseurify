@@ -1,0 +1,7 @@
+<h1>Artists</h1>
+
+<ul class="list-unstyled">
+<% @artists.each do |artist| %>
+<li><p><%= link_to artist.name, artist_path(artist) %></p></li>
+<%end%>
+</ul>
