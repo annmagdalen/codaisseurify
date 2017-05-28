@@ -1,10 +1,13 @@
 <div class="container">
   <h1>New Song</h1>
 
-    <%= form_for @song do |f| %>
+  <% if @song.errors.any? %>
+  <% @song.errors.full_messages.each do |msg|%>
+    <%=msg%>
+    <%end%>
+  <%end%>
 
-      <%= f.label :artist_id %>
-      <%= f.collection_select(:artist_id, Artist.all, :id, :name) %>
+    <%= form_for([@song.artist, @song]) do |f| %>
 
       <%= f.label :name %>
       <%= f.text_field :name %>

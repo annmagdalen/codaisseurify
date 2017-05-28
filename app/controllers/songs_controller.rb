@@ -5,21 +5,23 @@ class SongsController < ApplicationController
   end
 
   def new
-    @song = Song.new
+    artist=Artist.find(params[:artist_id])
+    @song = artist.songs.build
   end
 
   def create
-    song_params = params.require(:song).permit(:name, :artist_id)
-    @song = Song.new(song_params)
+    artist=Artist.find(params[:artist_id])
+    @song = artist.songs.create(params.require(:song).permit(:name))
     if @song.save
-      redirect_to @song.artist
+      redirect_to artist_path(artist)
     else
       render 'new'
     end
   end
 
   def destroy
-    @song = Song.find(params[:id])
+    artist=Artist.find(params[:artist_id])
+    @song = artist.songs.find(params[:id])
     @song.destroy
     redirect_back(fallback_location: root_path)
   end
