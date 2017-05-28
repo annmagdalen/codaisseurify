@@ -13,20 +13,13 @@ describe "Navigating artists" do
     expect(current_path).to eq(root_path)
   end
 
-  it "allows navigation from artist show page to new song page" do
+  it "stays on same page when deleting a song" do
     visit artist_url(artist)
 
-    click_link "Add a new song"
+    click_link "X"
 
-    expect(current_path).to eq(new_song_path)
+    expect(current_path).to eq(current_path)
   end
 
-  it "allows navigation from artist show page to artist overview page when deleting artist" do
-    visit artist_url(artist)
-
-    click_link "Delete artist"
-
-    expect(current_path).to eq(root_path)
-  end
 
 end
