@@ -11,11 +11,15 @@ class SongsController < ApplicationController
 
   def create
     artist=Artist.find(params[:artist_id])
-    @song = artist.songs.create(params.require(:song).permit(:name))
-    if @song.save
-      redirect_to artist_path(artist)
-    else
-      render 'new'
+    @song = artist.songs.build(params.require(:song).permit(:name))
+    respond_to do |format|
+      if @song.save
+        format.html { redirect_to artist_path(artist) }
+        format.json { render :show, status: :created, location: @song}
+      else
+        format.html { redirect_to artist_path(artist) }
+        format.json { render json: @song.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -23,7 +27,10 @@ class SongsController < ApplicationController
     artist=Artist.find(params[:artist_id])
     @song = artist.songs.find(params[:id])
     @song.destroy
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.json { head :no_content }
+    end
   end
 
 end
