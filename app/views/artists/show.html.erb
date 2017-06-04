@@ -8,7 +8,7 @@
             <% if @artist.songs.any? %>
               <ul class="list-group">
               <% @artist.songs.each do |song| %>
-                <li>
+                <li class="success">
                   <h4><%= song.name%>
                     <%= link_to "X", artist_song_path(@artist, song), remote: true, method: :delete %></h4>
                 </li>
@@ -21,7 +21,7 @@
 
     <%= render "songs/form" %>
 
-    <h4><%= link_to "Delete all songs", remote: true, method: :delete %></h4>
+    <h4><a href="#" id="clean-up">Delete all songs</a></h4>
 
     <hr>
 
@@ -33,3 +33,18 @@
       <h5><%= link_to "Back to all artists", root_path %></h5>
     </div>
 </div>
+
+<script type="text/javascript">
+
+function deleteAllSongs(event) {
+  event.preventDefault();
+  $(".success").remove();
+}
+
+$(document).ready(function() {
+  $("#clean-up").bind('click', deleteAllSongs);
+});
+
+
+
+</script>

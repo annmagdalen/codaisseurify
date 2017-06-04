@@ -17,8 +17,9 @@ class SongsController < ApplicationController
         format.html { redirect_to artist_path(artist) }
         format.json { render :show, status: :created, location: @song}
       else
-        format.html { redirect_to artist_path(artist) }
-        format.json { render json: @song.errors, status: :unprocessable_entity }
+        format.html { redirect_to artist_path(artist)}
+        format.json { render json: @song.errors, status: :unprocessable_entity,
+        message: "Can't be blank" }
       end
     end
   end
